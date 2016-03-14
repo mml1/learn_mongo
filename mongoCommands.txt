@@ -1,0 +1,38 @@
+sudo mongod-> different terminal shell
+mongo 
+db
+use my_first_db
+show collections
+db.createCollection("students")
+db.students.insert({name:"Amrita", home_state: "CA", lucky_number: 9, birthday: {month: 01, day: 15, year: 2015}})
+ db.students.insert({name:"Heather", home_state: "CA", lucky_number: 10, birthday: {month: 02, day: 16, year: 2015}})
+db.students.insert({name:"Ali", home_state: "WA", lucky_number: 11, birthday: {month: 03, day: 17, year: 2015}})
+db.students.insert({name:"Sonya", home_state: "WA", lucky_number: 12, birthday: {month: 04, day: 18, year: 2015}})
+db.students.insert({name:"Ana", home_state: "MA", lucky_number: 13, birthday: {month: 05, day: 19, year: 2015}})db.students.find()
+db.students.find({home_state: "CA"}).pretty()
+db.students.find({home_state: "WA"}).pretty()
+db.students.find({lucky_number: {$gt:3}}).pretty()
+db.students.find({lucky_number: {$lte:10}}).pretty()
+db.students.find({$and:[{lucky_number:{$lt:10}}, {lucky_number:{$gt:0}}] }).pretty()
+db.students.update({}, {$set:{interests:["coding", "brunch", "MongoDB"]}}, {multi:true})
+db.students.update({name:"Amrita"}, {$set:{interests:["coding", "lunch", "express"]}})
+db.students.update({name:"Ali"}, {$set:{interests:["dinner", "lunch", "foood"]}})
+db.students.update({name:"Sonya"}, {$set:{interests:["dance", "music", "foood"]}})
+db.students.update({name:"Heather"}, {$set:{interests:["food", "food", "foood"]}})
+db.students.update({name:"Heather"}, {$push:{interests:"taxes"}})
+db.students.find({name:"Heather"})
+db.students.update({name:"Heather"}, {$pull:{interests:"taxes"}})
+db.students.find({name:"Heather"})
+db.students.remove({home_state: "CA"})
+db.students.remove({name: "Sonya"})
+db.students.remove({lucky_number: {$gt:5}}, true)
+db.students.update({}, {$set:{number_of_belts: 0}})
+db.students.update({home_state: "WA"}, {$set:{number_of_belts: 1}, {multi:true}}
+db.students.find()
+)db.students.update({home_state: "WA"}, {$inc:{number_of_belts: 1}})
+db.students.update({}, {$rename: {"number_of_belts":"belts_earned"}})
+db.students.find()
+db.students.update({},{$unset:{lucky_number: ""}})
+db.students.update({}, {$set:{update_on: ""}})
+db.students.update({}, {$currentDate:{update_on: true}})
+db.students.find()
